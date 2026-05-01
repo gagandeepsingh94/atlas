@@ -52,6 +52,7 @@ Atlas is a two-layer system of **commands** and **skills**. The Claude Code inte
 | `write-overview-doc` | Converts the index into `.atlas/codebase-overview.md` covering all 11 architecture sections |
 | `generate-diagram` | Produces draw.io XML, Excalidraw JSON, and Mermaid diagrams from the index |
 | `explore-repo-interface` | Extracts what a repo exposes, depends on, and owns — used for cross-repo analysis |
+| `domain-models` | Deeply explores a service repo and generates `docs/domain-models.md` — a comprehensive domain model reference with Mermaid diagrams, automatically discovering sibling transport/proto repos |
 
 ---
 
@@ -109,6 +110,9 @@ integrations/claude-code/commands/ecosystem-overview.md    ← /ecosystem-overvi
 
 integrations/claude-code/commands/ml-overview.md           ← /ml-overview
   (uses index fast-path if available)
+
+integrations/claude-code/skills/domain-models/             ← domain-models skill
+  (activates autonomously when user asks for domain model docs)
 ```
 
 ---
@@ -129,7 +133,8 @@ atlas/
 │       ├── index-codebase.md
 │       ├── write-overview-doc.md
 │       ├── generate-diagram.md
-│       └── explore-repo-interface.md
+│       ├── explore-repo-interface.md
+│       └── domain-models.md
 ├── integrations/
 │   └── claude-code/                   # Claude Code wrapper (what gets installed)
 │       ├── commands/                  # Spec + Claude frontmatter
@@ -164,7 +169,7 @@ Installs the Claude Code integration by default. Prints a confirmation:
 ```
 Atlas installed successfully.
   Commands : 5  →  /Users/you/.claude/commands
-  Skills   : 5  →  /Users/you/.claude/skills
+  Skills   : 6  →  /Users/you/.claude/skills
 
 Available commands:
   /ask-atlas
